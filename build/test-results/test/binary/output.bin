@@ -1,0 +1,3 @@
+}14:12:40.021 [Test worker] DEBUG org.springframework.web.client.RestTemplate - HTTP POST http://localhost:8080/employee/add
+~14:12:40.144 [Test worker] DEBUG org.springframework.web.client.RestTemplate - Accept=[application/json, application/*+json]
+§14:12:40.170 [Test worker] DEBUG org.springframework.web.client.RestTemplate - Writing [Employee #: , 0, Ivan, bogatyr, 00000000] as "application/json;charset=UTF-8"
