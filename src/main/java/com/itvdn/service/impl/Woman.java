@@ -3,15 +3,15 @@ package com.itvdn.service.impl;
 import com.itvdn.service.User;
 import org.springframework.stereotype.Service;
 
-//@Getter
-//@Setter
-//@ToString
-//@Data
+import java.util.List;
+
+
 @Service
 public class Woman implements User {
     private String name;
     private String surname;
     private Integer years;
+    private List<User> userList;
 
     public Woman() {
     }
@@ -33,31 +33,41 @@ public class Woman implements User {
 
     @Override
     public String getName() {
-        return null;
+        return name;
     }
 
     @Override
     public void setName(String name) {
-
+        this.name = name;
     }
 
     @Override
     public String getSurname() {
-        return null;
+        return surname;
     }
 
     @Override
     public void setSurname(String surname) {
-
+        this.surname = surname;
     }
 
     @Override
     public Integer getYears() {
-        return null;
+        return years;
     }
 
     @Override
     public void setYears(Integer years) {
+        this.years = years;
+    }
 
+    @Override
+    public List<User> getUserList() {
+        return userList;
+    }
+
+    @Override
+    public void setUserList(List<User> userList) {
+        this.userList = userList;
     }
 }

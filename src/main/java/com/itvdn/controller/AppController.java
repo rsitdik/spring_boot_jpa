@@ -1,7 +1,6 @@
 package com.itvdn.controller;
 
 import com.itvdn.service.User;
-import com.itvdn.service.impl.Man;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -22,7 +21,7 @@ public class AppController {
         return "user";
     }
 
-    @RequestMapping("/hello")
+    @GetMapping("/hello2")
     public String helloPage(Model model) {
         model.addAttribute("msg", "Spring Boot");
         return "hello";
@@ -33,13 +32,19 @@ public class AppController {
         return "bye";
     }
 
+    @GetMapping(value = "/bye2")
+    public ModelAndView bye(ModelAndView modelAndView) {
+        modelAndView.setViewName("bye");
+        return modelAndView;
+    }
+
     @GetMapping(value = "/pass-data")
     public String passDataFromUser() {
         return "pass-data";
     }
 
     @PostMapping(value = "/pass-data")
-    public ModelAndView passDataFromUser(@ModelAttribute("user") Man user, ModelAndView modelAndView) {
+    public ModelAndView passDataFromUser(@ModelAttribute("user") User user, ModelAndView modelAndView) {
         modelAndView.setViewName("summary");
         modelAndView.addObject("user", user);
         return modelAndView;
@@ -50,6 +55,12 @@ public class AppController {
         modelAndView.setViewName("greeting");
         modelAndView.addObject("userName", userName);
         return modelAndView;
+    }
+
+    @GetMapping(value = "/rest/{name}")
+    @ResponseBody
+    public String retRest(@PathVariable String name) {
+        return name + Math.random() * 1000;
     }
 
     @Autowired

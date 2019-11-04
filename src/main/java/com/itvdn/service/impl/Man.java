@@ -3,6 +3,8 @@ package com.itvdn.service.impl;
 import com.itvdn.service.User;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 //@Getter
 //@Setter
 //@Data
@@ -11,6 +13,7 @@ public  class Man implements User {
     private String name;
     private String surname;
     private Integer years;
+    private List<User> userList;
 
     public Man() {
     }
@@ -58,5 +61,13 @@ public  class Man implements User {
     @Override
     public void setYears(Integer years) {
         this.years = years;
+    }
+
+    public List<User> getUserList() {
+        return userList;
+    }
+
+    public void setUserList(List<User> userList) {
+        this.userList = userList;
     }
 }

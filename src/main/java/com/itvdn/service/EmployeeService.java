@@ -4,7 +4,7 @@ import com.itvdn.entity.Employee;
 
 import java.util.List;
 
-public interface EmployeeJpaService {
+public interface EmployeeService {
 
     Employee addEmployee(Employee employee);
 
@@ -16,7 +16,9 @@ public interface EmployeeJpaService {
 
     Employee getById(long id);
 
-      void listAllEmployee();
+    void listAllEmployee();
+
+    Employee findByName(String name);
 
     List<Employee> findEmployeeByName(String name);
 

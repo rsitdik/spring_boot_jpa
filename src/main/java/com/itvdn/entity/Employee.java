@@ -12,6 +12,24 @@ public class Employee {
     private String position;
     private String phone;
 
+    public Employee() {
+    }
+
+    public Employee(String name) {
+        this.name = name;
+    }
+
+    public Employee(String name, String position) {
+        this.name = name;
+        this.position = position;
+    }
+
+    public Employee(String name, String position, String phone) {
+        this.name = name;
+        this.position = position;
+        this.phone = phone;
+    }
+
     public long getId() {
         return id;
     }

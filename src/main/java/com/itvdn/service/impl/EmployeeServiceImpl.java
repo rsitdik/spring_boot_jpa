@@ -3,14 +3,14 @@ package com.itvdn.service.impl;
 import com.google.common.collect.Lists;
 import com.itvdn.entity.Employee;
 import com.itvdn.jpa.EmployeeRepository;
-import com.itvdn.service.EmployeeJpaService;
+import com.itvdn.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-public class EmployeeJpaServiceImpl implements EmployeeJpaService {
+public class EmployeeServiceImpl implements EmployeeService {
     private EmployeeRepository employeeRepository;
 
     @Override
@@ -44,6 +44,11 @@ public class EmployeeJpaServiceImpl implements EmployeeJpaService {
     @Override
     public void listAllEmployee() {
         employeeRepository.findAll().forEach(e -> System.out.println(e.getId()));
+    }
+
+    @Override
+    public Employee findByName(String name){
+        return employeeRepository.findByName(name);
     }
 
     @Override

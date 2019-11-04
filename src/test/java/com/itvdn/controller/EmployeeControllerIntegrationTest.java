@@ -1,73 +1,91 @@
 package com.itvdn.controller;
 
 import com.itvdn.entity.Employee;
+import org.junit.Before;
 import org.junit.Test;
-import org.springframework.http.*;
-import org.springframework.web.client.RestTemplate;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.web.context.WebApplicationContext;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
 
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
+@RunWith(SpringRunner.class)
+@SpringBootTest
 public class EmployeeControllerIntegrationTest {
-    private static final String ROOT = "http://localhost:8080/employee";
-    private static final String ADD = "/add";
-    private static final String GET = "/get";
-    private static final String GET_ALL = "/all";
-    private static final String GET_BY_ID = GET + "/{id}";
+    private MockMvc mockMvc;
+
+    @Autowired
+    WebApplicationContext wac;
+    private final String ROOT = "/employee";
+
+    @Before
+    public void setUp() {
+        mockMvc = MockMvcBuilders.webAppContextSetup(wac).build();
+    }
+
+    @Test
+    public void addNewEmployee() throws Exception {
+        mockMvc.perform(post(ROOT + "/add")
+                .param("name", "Oleg")
+                .param("position", "CEO")
+                .param("phone", "042"))
+                .andExpect(status().is3xxRedirection());
+    }
+
 
 
     @Test
-    public void checkAddNewEmployee() {
-        Employee employee = createEmployee();
-
-        RestTemplate template = new RestTemplate();
-        ResponseEntity<Employee> responseEntity = template.exchange(
-                ROOT + GET_BY_ID,
-                HttpMethod.GET,
-                null,
-                Employee.class,
-                employee.getId()
-        );
-        assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
-        Employee receivedEmployee = responseEntity.getBody();
-        assertNotNull(receivedEmployee);
+    public void findEmployeeByNameAndPosition() throws Exception {
+        System.out.println(Objects.requireNonNull(mockMvc
+                .perform(post(ROOT + "/findByNameAndPosition")
+                        .param("name", "Oleg")
+                        .param("position", "CEO"))
+                .andExpect(status().is2xxSuccessful())
+                .andReturn().getModelAndView()).getModel().get("employees"));
     }
 
-    private Employee createEmployee() {
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
-
-        Employee employee = prefillEmployee();
-        HttpEntity<Employee> entity = new HttpEntity<>(employee, headers);
-        RestTemplate template = new RestTemplate();
-        Employee createdEmployee = template.exchange(
-                ROOT + ADD,
-                HttpMethod.POST,
-                entity,
-                Employee.class
-        ).getBody();
-
-        assertNotNull(createdEmployee);
-        assertEquals("Ivan", createdEmployee.getName());
-        return createdEmployee;
+    @Test
+    public void findEmployeeByName() throws Exception {
+        System.out.println(Objects.requireNonNull(mockMvc
+                .perform(post(ROOT + "/findByName")
+                        .param("name", "Oleg"))
+                .andExpect(status().is2xxSuccessful())
+                .andReturn().getModelAndView()).getModel().get("employees"));
     }
 
-    private Employee prefillEmployee() {
-        Employee employee = new Employee();
-        employee.setName("Ivan");
-        employee.setPosition("bogatyr");
-        employee.setPhone("00000000");
+    @Test
+    public void listAllEmployee() throws Exception {
+        System.out.println(Objects.requireNonNull(mockMvc.perform(get(ROOT + "/all"))
+                .andExpect(status().is2xxSuccessful())
+                .andReturn().getModelAndView()).getModel().get("employees"));
+    }
 
-//        Employee employee1 = new Employee();
-//        employee1.setName("Janna");
-//        employee1.setPosition("doctor");
-//        employee1.setPhone("353535742");
-//
-//        List<Employee> list = new ArrayList<>();
-//        list.add(employee);
-//        list.add(employee1);
-//
-//        employee.setEmployees(list);
-        return employee;
+    @Test
+    public void findEmployeeByNameAndPhone() throws Exception {
+        Object employee = Objects.requireNonNull(mockMvc.perform(post(ROOT + "/findByNameAndPhone")
+                .param("name", "Oleg")
+                .param("phone", "042"))
+                .andExpect(status().is2xxSuccessful())
+                .andReturn().getModelAndView()).getModel().get("employees");
+
+        if (employee instanceof List && !((List) employee).isEmpty()) {
+            Optional firstEmployee = ((List) employee).stream().findFirst();
+            Employee emp = (Employee) firstEmployee.get();
+            System.out.println(emp);
+            mockMvc.perform(get(ROOT + "/remove/{id}", emp.getId()))
+                    .andExpect(status().is3xxRedirection());
+        } else {
+            System.out.println("No such employee");
+        }
     }
 }

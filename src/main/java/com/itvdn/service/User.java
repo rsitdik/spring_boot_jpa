@@ -1,5 +1,7 @@
 package com.itvdn.service;
 
+import java.util.List;
+
 public interface User {
     String getName();
 
@@ -12,4 +14,8 @@ public interface User {
     Integer getYears();
 
     void setYears(Integer years);
+
+    List<User> getUserList();
+
+    void setUserList(List<User> userList);
 }
