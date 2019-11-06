@@ -65,7 +65,7 @@ public class Employee {
     @Override
     public String toString() {
         return String.join(", ", new String[]{
-                "Employee #: ", String.valueOf(id), name, position, phone
+                "Employee №: ", String.valueOf(id), name, position, phone
         });
     }
 }

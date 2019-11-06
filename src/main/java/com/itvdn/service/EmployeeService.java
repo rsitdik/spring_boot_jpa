@@ -25,4 +25,6 @@ public interface EmployeeService {
     List<Employee> findEmployeeByNameAndPosition(String name, String position);
 
     List<Employee> getEmployeeByNameAndPhone(String name, String phone);
+
+    void throwException();
 }

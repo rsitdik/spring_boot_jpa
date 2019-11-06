@@ -12,5 +12,10 @@
     <input type="submit" value="Pass data">
 </form>
 
+<br>
+<p>This view has nam pass-data</p>
+<a href="/hello">Main page</a>
+<br>
+<a href="/unauthorize-me">Unauthorize</a>
 </body>
 </html>

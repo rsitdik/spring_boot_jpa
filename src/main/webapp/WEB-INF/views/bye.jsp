@@ -6,5 +6,6 @@
 </head>
 <body>
 <h3>Good Bye.</h3>
+<a href="/">Home</a>
 </body>
 </html>

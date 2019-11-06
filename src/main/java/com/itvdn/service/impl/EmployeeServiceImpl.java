@@ -47,7 +47,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public Employee findByName(String name){
+    public Employee findByName(String name) {
         return employeeRepository.findByName(name);
     }
 
@@ -64,6 +64,10 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     public List<Employee> getEmployeeByNameAndPhone(String name, String phone) {
         return employeeRepository.findEmployeeByNameAndPhone(name, phone);
+    }
+
+    public void throwException() {
+        throw new UnsupportedOperationException("Not support yet.");
     }
 
     @Autowired

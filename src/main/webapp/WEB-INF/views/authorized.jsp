@@ -1,13 +1,12 @@
-
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Hello</title>
+    <title>Authorized page</title>
 </head>
 <body>
-<h2>Hello, ${msg}!</h2>
-<p>This view has name hello.</p>
-<a href="/authorize-me">Unauthorize</a>
+<h1>U R authorized now! Welcome!</h1>
+<br>
+<a href="/hello">Main page</a>
 <br>
 <a href="/pass-data">Pass-data</a>
 <br>

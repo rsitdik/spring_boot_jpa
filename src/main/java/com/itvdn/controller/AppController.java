@@ -1,5 +1,6 @@
 package com.itvdn.controller;
 
+import com.itvdn.model.Authorization;
 import com.itvdn.service.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -12,6 +13,24 @@ import org.springframework.web.servlet.ModelAndView;
 @RequestMapping("/")
 public class AppController {
     private User user;
+    private Authorization auth;
+
+    @GetMapping(value = "/authorize-me")
+    public ModelAndView authorize(ModelAndView modelAndView) {
+        auth.setAuthorized(Boolean.TRUE);
+        modelAndView.setViewName("authorized");
+        modelAndView.addObject("authorized", auth);
+        return modelAndView;
+    }
+
+    @GetMapping(value = "/unauthorize-me")
+    public ModelAndView unAuthorize(ModelAndView modelAndView) {
+        auth.setAuthorized(Boolean.FALSE);
+        modelAndView.setViewName("bye");
+        modelAndView.addObject("authorized", auth);
+        return modelAndView;
+    }
+
 
     @GetMapping("/user")
     public String helloMan(Model model) {
@@ -21,11 +40,18 @@ public class AppController {
         return "user";
     }
 
-    @GetMapping("/hello2")
+    @GetMapping("/hello")
     public String helloPage(Model model) {
         model.addAttribute("msg", "Spring Boot");
-        return "hello";
+        return "index";
     }
+
+    //for test
+//    @GetMapping("/hello2")
+//    public String helloPage(Model model) {
+//        model.addAttribute("msg", "Spring Boot");
+//        return "hello";
+//    }
 
     @GetMapping(value = "/bye")
     public String bye() {
@@ -45,6 +71,7 @@ public class AppController {
 
     @PostMapping(value = "/pass-data")
     public ModelAndView passDataFromUser(@ModelAttribute("user") User user, ModelAndView modelAndView) {
+        System.out.println(user);
         modelAndView.setViewName("summary");
         modelAndView.addObject("user", user);
         return modelAndView;
@@ -67,6 +94,11 @@ public class AppController {
     @Qualifier(value = "man")
     public void setUser(User user) {
         this.user = user;
+    }
+
+    @Autowired
+    public void setAuth(Authorization auth) {
+        this.auth = auth;
     }
 
 }

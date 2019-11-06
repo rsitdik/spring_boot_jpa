@@ -83,4 +83,10 @@ public class EmployeeController {
         return modelAndView;
     }
 
+    @GetMapping(value = "/unsupported")
+    public String unsupportedMethod() {
+        employeeService.throwException();
+        return "/employee/all";
+    }
+
 }
