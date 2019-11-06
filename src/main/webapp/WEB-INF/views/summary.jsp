@@ -12,9 +12,9 @@
 <p>This view has name summary</p>
 
 <a href="/pass-data">back</a>
-<br>
+<br/>
 <a href="/hello">Main page</a>
-<br>
+<br/>
 <a href="/unauthorize-me">Unauthorize</a>
 </body>
 </html>

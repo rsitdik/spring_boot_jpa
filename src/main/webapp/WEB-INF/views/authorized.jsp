@@ -5,11 +5,11 @@
 </head>
 <body>
 <h1>U R authorized now! Welcome!</h1>
-<br>
+<br/>
 <a href="/hello">Main page</a>
-<br>
+<br/>
 <a href="/pass-data">Pass-data</a>
-<br>
+<br/>
 <a href="/unauthorize-me">Unauthorize</a>
 </body>
 </html>

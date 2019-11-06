@@ -8,9 +8,9 @@
 <h2>Hello, ${msg}!</h2>
 <p>This view has name hello.</p>
 <a href="/authorize-me">Unauthorize</a>
-<br>
+<br/>
 <a href="/pass-data">Pass-data</a>
-<br>
+<br/>
 <a href="/unauthorize-me">Unauthorize</a>
 </body>
 </html>

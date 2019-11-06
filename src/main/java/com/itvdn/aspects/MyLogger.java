@@ -37,7 +37,7 @@ public class MyLogger {
 
     @AfterThrowing(throwing = "ex", pointcut = "within(@org.springframework.web.bind.annotation.RequestMapping *)")
     public void afterThrowing(Exception ex) {
-        out.println("***************** Log : error ***************");
+        out.println("**************** Log : error ***************");
         out.println("Exception: " + ex.getMessage());
         out.println("********************************************");
     }
