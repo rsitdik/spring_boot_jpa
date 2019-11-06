@@ -9,28 +9,23 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
-@Aspect()
+@Aspect
 public class SecurityAspect {
     private Authorization auth;
 
-    @Before("points())")
+    @Before("pointCut())")
     public void checkAuthorize() {
         if (!auth.getAuthorized()) {
             throw new NotAuthorizedException("User is not authorized!");
         }
     }
 
-    @Autowired
-    public void setAuth(Authorization auth) {
-        this.auth = auth;
-    }
-
-    @Pointcut("point() && pointAuthorize() && pointUnAuthorize() && pointHelloPage()" )
-    public void points() {
+    @Pointcut("pointAll() && pointAuthorize() && pointUnAuthorize() && pointHelloPage()")
+    public void pointCut() {
     }
 
     @Pointcut("execution(* com.itvdn.controller.AppController.*(..))")
-    public void point() {
+    public void pointAll() {
     }
 
     @Pointcut(value = "!execution(* com.itvdn.controller.AppController.authorize(..))")
@@ -43,5 +38,10 @@ public class SecurityAspect {
 
     @Pointcut("!execution(* com.itvdn.controller.AppController.helloPage(..))")
     public void pointHelloPage() {
+    }
+
+    @Autowired
+    public void setAuth(Authorization auth) {
+        this.auth = auth;
     }
 }

@@ -15,8 +15,7 @@ public class Authorization {
         return authorized;
     }
 
-    public Authorization setAuthorized(Boolean authorized) {
+    public void setAuthorized(Boolean authorized) {
         this.authorized = authorized;
-        return this;
     }
 }

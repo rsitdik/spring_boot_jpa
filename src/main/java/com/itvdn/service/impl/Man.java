@@ -5,11 +5,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-//@Getter
-//@Setter
-//@Data
 @Service
-public  class Man implements User {
+public class Man implements User {
     private String name;
     private String surname;
     private Integer years;
@@ -70,4 +67,5 @@ public  class Man implements User {
     public void setUserList(List<User> userList) {
         this.userList = userList;
     }
+
 }

@@ -15,9 +15,8 @@ public class AppConfig {
         return new MyLogger();
     }
 
-
     @Bean
-    Authorization authorization(){
+    Authorization authorization() {
         return new Authorization();
     }
 }
