@@ -93,7 +93,7 @@ public class AppControllerTest {
 
     @Test
     public void testController7() throws Exception {
-        mockMvc.perform(get("/hello2")).andExpect(status().is2xxSuccessful());
+        mockMvc.perform(get("/hello")).andExpect(status().is2xxSuccessful());
     }
 
     @Test

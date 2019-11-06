@@ -4,7 +4,6 @@ import com.itvdn.model.Authorization;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
 
 import static java.lang.System.out;
@@ -12,15 +11,14 @@ import static java.lang.System.out;
 @Component
 @Aspect()
 public class MyLogger {
-    private ApplicationContext applicationContext;
+    private Authorization authorization;
 
     @Pointcut("execution(* com.itvdn.controller.AppController.*(..))")
-    public void service() {
+    public void pointcut() {
     }
 
-    @Before("service()")
+    @Before("pointcut()")
     public void beforeMethodInvocation(JoinPoint joinPoint) {
-        Authorization authorization = applicationContext.getBean("authorization", Authorization.class);
         out.println("Authorized: " + authorization.getAuthorized());
         out.println("********************************************");
         out.println("Log : before method " + joinPoint.getSignature().toShortString() + ".");
@@ -45,7 +43,7 @@ public class MyLogger {
     }
 
     @Autowired
-    public void setApplicationContext(ApplicationContext applicationContext) {
-        this.applicationContext = applicationContext;
+    public void setAuthorization(Authorization authorization) {
+        this.authorization = authorization;
     }
 }

@@ -46,13 +46,6 @@ public class AppController {
         return "index";
     }
 
-    //for test
-//    @GetMapping("/hello2")
-//    public String helloPage(Model model) {
-//        model.addAttribute("msg", "Spring Boot");
-//        return "hello";
-//    }
-
     @GetMapping(value = "/bye")
     public String bye() {
         return "bye";
