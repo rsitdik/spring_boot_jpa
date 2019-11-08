@@ -13,9 +13,10 @@
 </form>
 
 <br/>
-<p>This view has nam pass-data</p>
+<p>This view has name pass-data</p>
 <a href="/hello">Main page</a>
 <br/>
-<a href="/unauthorize-me">Unauthorize</a>
+<%--<a href="/unauthorize-me">Unauthorize</a>--%>
+<a href="/logout">Logout</a>
 </body>
 </html>

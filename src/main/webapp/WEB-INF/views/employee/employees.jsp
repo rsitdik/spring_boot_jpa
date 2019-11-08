@@ -4,8 +4,51 @@
     <title>Employees</title>
 </head>
 <body>
-<h1>List of Employees: </h1>
+
+<%--<style>--%>
+<%--    table, th, td {--%>
+<%--        border: 1px solid black;--%>
+<%--        padding: 10px;--%>
+<%--        margin: 5px;--%>
+<%--    }--%>
+
+<%--    input[type=text] {--%>
+<%--        width: 15%;--%>
+<%--        padding: 12px 15px;--%>
+<%--        margin: 8px 0;--%>
+<%--        box-sizing: border-box;--%>
+<%--    }--%>
+<%--</style>--%>
+
+
+<h1>Employees table : </h1>
 ${employees}
+
+<%--<table>--%>
+<%--    <thead>--%>
+<%--    <tr>--%>
+<%--        <th>#</th>--%>
+<%--        <th>ID</th>--%>
+<%--        <th>Name</th>--%>
+<%--        <th>Position</th>--%>
+<%--        <th>Phone</th>--%>
+<%--        <th>Action</th>--%>
+<%--    </tr>--%>
+<%--    </thead>--%>
+<%--    <tbody>--%>
+<%--    <c:forEach items="${employees}" var="employee" varStatus="status">--%>
+<%--        <tr>--%>
+<%--            <td>${status.index + 1}</td>--%>
+<%--            <td>${employee.id}</td>--%>
+<%--            <td>${employee.name}</td>--%>
+<%--            <td>${employee.position}</td>--%>
+<%--            <td>${employee.phone}</td>--%>
+<%--            <td><a href="/employee/remove/${employee.id}">Remove</a></td>--%>
+<%--        </tr>--%>
+<%--    </c:forEach>--%>
+<%--    </tbody>--%>
+<%--</table>--%>
+
 
 <br/>
 <h2>To add new employee press "Add employee" button</h2>
@@ -46,5 +89,9 @@ ${employees}
     Phone: <input type="text" name="phone">
     <input type="submit" value="Search by name and phone">
 </form>
+<br/>
+<a href="/logout">Logout</a>
+<br/>
+<a href="/">Home</a>
 </body>
 </html>

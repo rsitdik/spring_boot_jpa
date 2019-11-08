@@ -16,8 +16,6 @@ public interface EmployeeService {
 
     Employee getById(long id);
 
-    void listAllEmployee();
-
     Employee findByName(String name);
 
     List<Employee> findEmployeeByName(String name);

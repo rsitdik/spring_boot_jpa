@@ -36,10 +36,8 @@ public class EmployeeController {
 
     @GetMapping(value = "/all")
     public ModelAndView listAllEmployee(ModelAndView modelAndView) {
-        employeeService.listAllEmployee();
         modelAndView.addObject("employees", employeeService.findAll());
         modelAndView.setViewName("employee/employees");
-//        modelAndView.setViewName("index");
         return modelAndView;
     }
 
@@ -88,5 +86,4 @@ public class EmployeeController {
         employeeService.throwException();
         return "/employee/all";
     }
-
 }

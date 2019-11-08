@@ -31,7 +31,6 @@ public class AppController {
         return modelAndView;
     }
 
-
     @GetMapping("/user")
     public String helloMan(Model model) {
         model.addAttribute("name", user.getName());
@@ -93,5 +92,4 @@ public class AppController {
     public void setAuth(Authorization auth) {
         this.auth = auth;
     }
-
 }
