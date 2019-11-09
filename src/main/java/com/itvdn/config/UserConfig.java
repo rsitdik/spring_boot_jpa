@@ -1,6 +1,6 @@
 package com.itvdn.config;
 
-import com.itvdn.entity.User;
+import com.itvdn.model.User;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 

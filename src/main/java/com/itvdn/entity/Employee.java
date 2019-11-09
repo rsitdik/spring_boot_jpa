@@ -11,6 +11,10 @@ public class Employee {
     private String name;
     private String position;
     private String phone;
+    private String login;
+    private String password;
+    @Column(name = "role_id")
+    private Integer rolId;
 
     public Employee() {
     }
@@ -60,6 +64,30 @@ public class Employee {
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    public String getLogin() {
+        return login;
+    }
+
+    public void setLogin(String login) {
+        this.login = login;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public Integer getRolId() {
+        return rolId;
+    }
+
+    public void setRolId(Integer rolId) {
+        this.rolId = rolId;
     }
 
     @Override

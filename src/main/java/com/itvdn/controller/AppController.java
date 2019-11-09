@@ -5,6 +5,7 @@ import com.itvdn.service.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -83,6 +84,13 @@ public class AppController {
         modelAndView.setViewName("bye");
         modelAndView.addObject("authorized", auth);
         return modelAndView;
+    }
+
+    @RequestMapping("/password/{password}")
+    public String getAdminInfo(@PathVariable("password") String password, Model model) {
+        model.addAttribute("password", password);
+        model.addAttribute("passwordAfterEncode", new BCryptPasswordEncoder().encode(password));
+        return "password";
     }
 
     @Autowired

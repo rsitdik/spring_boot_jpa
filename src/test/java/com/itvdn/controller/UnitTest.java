@@ -1,6 +1,6 @@
 package com.itvdn.controller;
 
-import com.itvdn.entity.User;
+import com.itvdn.model.User;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.junit.Assert;
