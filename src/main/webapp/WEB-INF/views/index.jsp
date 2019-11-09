@@ -7,6 +7,8 @@
 &emsp;
 <a href="/employee/all">All employee</a>
 &emsp;
+<a href="/rest/employee/list">Rest employee list</a>
+&emsp;
 <a href="/logout">Logout</a>
 <p>This view has name index.</p>
 <br/>

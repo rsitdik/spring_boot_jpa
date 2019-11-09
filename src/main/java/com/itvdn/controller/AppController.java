@@ -28,7 +28,7 @@ public class AppController {
     @GetMapping("/hello")
     public String helloPage(Model model) {
         model.addAttribute("msg", "Spring Boot");
-        return "index";
+        return "hello";
     }
 
     @GetMapping(value = "/bye")

@@ -12,11 +12,17 @@ public class User {
     public User() {
     }
 
+    public User(String name) {
+        this.name = name;
+    }
+
     public User(String name, String surname, Integer years) {
         this.name = name;
         this.surname = surname;
         this.years = years;
     }
+
+
 
     public static String makeFriends(User user1, User user2) {
         return String.format("%s and %s are friends!", user1.getName(), user2.getName());
@@ -28,7 +34,7 @@ public class User {
 
     public static void waitInQueue() {
         try {
-            Thread.sleep(30L);
+            Thread.sleep(1000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
