@@ -4,6 +4,7 @@ import com.itvdn.model.Authorization;
 import com.itvdn.service.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -14,22 +15,6 @@ import org.springframework.web.servlet.ModelAndView;
 public class AppController {
     private User user;
     private Authorization auth;
-
-    @GetMapping(value = "/authorize-me")
-    public ModelAndView authorize(ModelAndView modelAndView) {
-        auth.setAuthorized(Boolean.TRUE);
-        modelAndView.setViewName("authorized");
-        modelAndView.addObject("authorized", auth);
-        return modelAndView;
-    }
-
-    @GetMapping(value = "/unauthorize-me")
-    public ModelAndView unAuthorize(ModelAndView modelAndView) {
-        auth.setAuthorized(Boolean.FALSE);
-        modelAndView.setViewName("bye");
-        modelAndView.addObject("authorized", auth);
-        return modelAndView;
-    }
 
     @GetMapping("/user")
     public String helloMan(Model model) {
@@ -57,6 +42,7 @@ public class AppController {
     }
 
     @GetMapping(value = "/pass-data")
+    @Secured({"ROLE_USER", "ROLE_ADMIN"})
     public String passDataFromUser() {
         return "pass-data";
     }
@@ -80,6 +66,23 @@ public class AppController {
     @ResponseBody
     public String retRest(@PathVariable String name) {
         return name + Math.random() * 1000;
+    }
+
+
+    @GetMapping(value = "/authorize-me")
+    public ModelAndView authorize(ModelAndView modelAndView) {
+        auth.setAuthorized(Boolean.TRUE);
+        modelAndView.setViewName("authorized");
+        modelAndView.addObject("authorized", auth);
+        return modelAndView;
+    }
+
+    @GetMapping(value = "/unauthorize-me")
+    public ModelAndView unAuthorize(ModelAndView modelAndView) {
+        auth.setAuthorized(Boolean.FALSE);
+        modelAndView.setViewName("bye");
+        modelAndView.addObject("authorized", auth);
+        return modelAndView;
     }
 
     @Autowired

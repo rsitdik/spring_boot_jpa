@@ -2,17 +2,17 @@ package com.itvdn.aspects;
 
 import com.itvdn.exceptions.NotAuthorizedException;
 import com.itvdn.model.Authorization;
-import org.aspectj.lang.annotation.Before;
+import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
-//@Aspect
+@Aspect
 public class SecurityAspect {
     private Authorization auth;
 
-    @Before("pointCut())")
+//    @Before("pointCut())")
     public void checkAuthorize() {
         if (!auth.getAuthorized()) {
             throw new NotAuthorizedException("User is not authorized!");

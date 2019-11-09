@@ -14,7 +14,7 @@
 
 <br/>
 <p>This view has name pass-data</p>
-<a href="/hello">Main page</a>
+<a href="/hello">Home</a>
 <br/>
 <%--<a href="/unauthorize-me">Unauthorize</a>--%>
 <a href="/logout">Logout</a>

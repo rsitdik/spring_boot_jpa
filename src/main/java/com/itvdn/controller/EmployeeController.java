@@ -4,6 +4,7 @@ import com.itvdn.entity.Employee;
 import com.itvdn.service.EmployeeService;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -35,6 +36,7 @@ public class EmployeeController {
     }
 
     @GetMapping(value = "/all")
+    @Secured({"ROLE_ADMIN"})
     public ModelAndView listAllEmployee(ModelAndView modelAndView) {
         modelAndView.addObject("employees", employeeService.findAll());
         modelAndView.setViewName("employee/employees");

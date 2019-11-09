@@ -5,7 +5,6 @@ import com.itvdn.entity.Employee;
 import com.itvdn.jpa.EmployeeRepository;
 import com.itvdn.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,7 +18,6 @@ public class EmployeeServiceImpl implements EmployeeService {
         return employeeRepository.save(employee);
     }
 
-    @PreAuthorize(value = "hasAuthority('ADMIN')")
     @Override
     public List<Employee> findAll() {
         return Lists.newArrayList(employeeRepository.findAll());
