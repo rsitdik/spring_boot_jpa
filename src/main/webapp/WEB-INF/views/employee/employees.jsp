@@ -64,6 +64,18 @@ ${employees}
     <label for="phone">Employee phone</label>
     <input type="text" name="phone" id="phone">
     <br/>
+    <br/>
+    <label for="phone">Employee login</label>
+    <input type="text" name="login" id="login">
+    <br/>
+    <br/>
+    <label for="phone">Employee password</label>
+    <input type="text" name="password" id="password">
+    <br/>
+    <br/>
+    <label for="phone">Employee role</label>
+    <input type="text" name="roleId" id="roleId">
+    <br/>
     <input type="submit" value="Add employee">
 </form>
 <br/>
@@ -89,6 +101,7 @@ ${employees}
     Phone: <input type="text" name="phone">
     <input type="submit" value="Search by name and phone">
 </form>
+<br/>
 <br/>
 <a href="/logout">Logout</a>
 <br/>

@@ -5,24 +5,40 @@ import com.itvdn.entity.Employee;
 import com.itvdn.jpa.EmployeeRepository;
 import com.itvdn.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
     private EmployeeRepository employeeRepository;
+    private EmployeeServiceImpl employeeService;
 
     @Override
     public Employee addEmployee(Employee employee) {
         return employeeRepository.save(employee);
     }
 
+    @Cacheable("employees")
     @Override
-    public List<Employee> findAll() {
+    public List<Employee> findAll() throws InterruptedException {
+        System.out.println("Star sleeping for 3 seconds");
+        Thread.sleep(3000);
+        System.out.println("End sleeping for 3 seconds");
         return Lists.newArrayList(employeeRepository.findAll());
     }
 
+    @CacheEvict("employees")
+    @Override
+    public void clearCache() {
+        System.out.println("employees cache cleared");
+    }
+
+    @CacheEvict(value = "employees", allEntries = true)
     @Override
     public void removeById(long id) {
         employeeRepository.deleteById(id);
@@ -66,9 +82,19 @@ public class EmployeeServiceImpl implements EmployeeService {
         throw new UnsupportedOperationException("Not support yet.");
     }
 
-    @Autowired
-    public void setEmployeeRepository(EmployeeRepository employeeRepository) {
-        this.employeeRepository = employeeRepository;
+    /**
+     * The difference between @Cacheable and @CachePut is that @Cacheable will skip running the method,
+     * whereas @CachePut will actually run the method and then put its results in the cache.
+     *
+     * @param id
+     * @return
+     */
+    @Override
+    @CachePut(value = "empl", condition = "#result != null", key = "#result.id")
+    public Optional<Employee> findById(long id) throws InterruptedException {
+        employeeService.findAll(); // call with self inject
+        System.out.println("Getting employee from repo");
+        return Optional.ofNullable(employeeRepository.findById(id));
     }
 
     @Autowired

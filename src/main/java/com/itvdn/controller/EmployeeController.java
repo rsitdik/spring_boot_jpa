@@ -4,6 +4,8 @@ import com.itvdn.entity.Employee;
 import com.itvdn.service.EmployeeService;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.springframework.cache.CacheManager;
+import org.springframework.cache.concurrent.ConcurrentMapCache;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,9 +21,11 @@ import javax.servlet.http.HttpServletRequest;
 public class EmployeeController {
     private static final Log LOG = LogFactory.getLog(EmployeeController.class);
     private EmployeeService employeeService;
+    private CacheManager cacheManager;
 
-    public EmployeeController(EmployeeService employeeService) {
+    public EmployeeController(EmployeeService employeeService, CacheManager cacheManager) {
         this.employeeService = employeeService;
+        this.cacheManager = cacheManager;
     }
 
     @PostMapping(value = "/add")
@@ -30,20 +34,23 @@ public class EmployeeController {
         employee.setName(request.getParameter("name"));
         employee.setPosition(request.getParameter("position"));
         employee.setPhone(request.getParameter("phone"));
+        employee.setLogin(request.getParameter("login"));
+        employee.setPassword(request.getParameter("password"));
+        employee.setRolId(Integer.valueOf(request.getParameter("roleId")));
         LOG.info("New employee with id: " + employeeService.addEmployee(employee).getId() + " was added.");
         return "redirect:/employee/all";
     }
 
     @GetMapping(value = "/all")
     @Secured({"ROLE_ADMIN"})
-    public ModelAndView listAllEmployee(ModelAndView modelAndView) {
+    public ModelAndView listAllEmployee(ModelAndView modelAndView) throws InterruptedException {
         modelAndView.addObject("employees", employeeService.findAll());
         modelAndView.setViewName("employee/employees");
         return modelAndView;
     }
 
     @GetMapping(value = "/remove/{id}")
-    public String deleteEmployeeById(@PathVariable long id, ModelAndView modelAndView) {
+    public String deleteEmployeeById(@PathVariable long id, ModelAndView modelAndView) throws InterruptedException {
         employeeService.removeById(id);
         modelAndView.addObject("employees", employeeService.findAll());
         modelAndView.setViewName("employee/employees");
@@ -51,7 +58,7 @@ public class EmployeeController {
     }
 
     @GetMapping(value = "/remove")
-    public String deleteEmployee(long id, ModelAndView modelAndView) {
+    public String deleteEmployee(long id, ModelAndView modelAndView) throws InterruptedException {
         employeeService.removeById(id);
         modelAndView.addObject("employees", employeeService.findAll());
         modelAndView.setViewName("employee/employees");
@@ -87,4 +94,15 @@ public class EmployeeController {
         employeeService.throwException();
         return "/employee/all";
     }
+
+    @GetMapping("/clear_cache")
+    public String clearCache() {
+        for (String name : cacheManager.getCacheNames()) {
+            System.out.println(name);
+            System.out.println(((ConcurrentMapCache)cacheManager.getCache(name)).getNativeCache().entrySet());
+        }
+        employeeService.clearCache();
+        return "redirect:/employee/all";
+    }
+
 }

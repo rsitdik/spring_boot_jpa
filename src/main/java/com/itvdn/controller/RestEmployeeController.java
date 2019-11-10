@@ -2,6 +2,8 @@ package com.itvdn.controller;
 
 import com.itvdn.entity.Employee;
 import com.itvdn.service.EmployeeService;
+import org.springframework.cache.Cache;
+import org.springframework.cache.CacheManager;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,9 +15,11 @@ import java.util.Objects;
 @RequestMapping("/rest/employee")
 public class RestEmployeeController {
     private EmployeeService employeeService;
+    private CacheManager cacheManager;
 
-    public RestEmployeeController(EmployeeService employeeService) {
+    public RestEmployeeController(EmployeeService employeeService, CacheManager cacheManager) {
         this.employeeService = employeeService;
+        this.cacheManager = cacheManager;
     }
 
     @PostMapping("/add")
@@ -24,12 +28,16 @@ public class RestEmployeeController {
     }
 
     @GetMapping("/{id}")
-    public Employee getEmployeeInfo(@PathVariable long id) {
-        return employeeService.getById(id);
+    public Employee getEmployeeInfo(@PathVariable long id) throws InterruptedException {
+        Cache.ValueWrapper empl = Objects.requireNonNull(cacheManager.getCache("empl")).get(id);
+
+        return empl != null ? (Employee) empl.get() : employeeService.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("No employee with such id!"));
+//        return employeeService.findById(id).get();
     }
 
     @GetMapping(value = "/list", produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<Employee> getEmployeeInfo(){
+    public List<Employee> getEmployeeInfo() throws InterruptedException {
         return employeeService.findAll();
     }
 

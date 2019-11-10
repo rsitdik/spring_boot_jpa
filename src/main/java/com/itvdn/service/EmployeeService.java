@@ -3,12 +3,13 @@ package com.itvdn.service;
 import com.itvdn.entity.Employee;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface EmployeeService {
 
     Employee addEmployee(Employee employee);
 
-    List<Employee> findAll();
+    List<Employee> findAll() throws InterruptedException;
 
     void removeById(long id);
 
@@ -25,4 +26,8 @@ public interface EmployeeService {
     List<Employee> getEmployeeByNameAndPhone(String name, String phone);
 
     void throwException();
+
+    void clearCache();
+
+    Optional<Employee> findById(long id) throws InterruptedException;
 }

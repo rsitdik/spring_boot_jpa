@@ -16,7 +16,7 @@
     <h1>Only admin can see this header.</h1>
 </sec:authorize>
 
-<sec:authorize access="hasAuthority('ROLE_EMPLOYEE')">
+<sec:authorize access="hasAuthority('ROLE_USER')">
     <h1>Header for authenticated user!</h1>
 </sec:authorize>
 

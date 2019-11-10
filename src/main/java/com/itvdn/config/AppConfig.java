@@ -19,4 +19,5 @@ public class AppConfig {
     Authorization authorization() {
         return new Authorization();
     }
+
 }
