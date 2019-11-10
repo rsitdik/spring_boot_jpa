@@ -28,9 +28,10 @@ public class EmployeeServiceImpl implements EmployeeService {
         employeeRepository.deleteById(id);
     }
 
-    // ? или
+    // for rest
     @Override
     public Employee deleteById(long id) {
+//        Employee employeeForDelete = getById(id);
         Employee employeeForDelete = getById(id);
         employeeRepository.delete(employeeForDelete);
         return employeeForDelete;
@@ -68,5 +69,16 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Autowired
     public void setEmployeeRepository(EmployeeRepository employeeRepository) {
         this.employeeRepository = employeeRepository;
+    }
+
+    @Autowired
+    public void setEmployeeRepository(EmployeeRepository employeeRepository) {
+        this.employeeRepository = employeeRepository;
+    }
+
+    // self inject
+    @Autowired
+    public void setEmployeeService(EmployeeServiceImpl employeeService) {
+        this.employeeService = employeeService;
     }
 }

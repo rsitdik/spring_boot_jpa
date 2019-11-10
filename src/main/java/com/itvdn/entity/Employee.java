@@ -1,5 +1,7 @@
 package com.itvdn.entity;
 
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
 import javax.persistence.*;
 
 @Entity
@@ -79,7 +81,7 @@ public class Employee {
     }
 
     public void setPassword(String password) {
-        this.password = password;
+        this.password = new BCryptPasswordEncoder().encode(password);
     }
 
     public Integer getRolId() {

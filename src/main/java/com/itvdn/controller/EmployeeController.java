@@ -31,7 +31,6 @@ public class EmployeeController {
         employee.setPosition(request.getParameter("position"));
         employee.setPhone(request.getParameter("phone"));
         LOG.info("New employee with id: " + employeeService.addEmployee(employee).getId() + " was added.");
-//        System.out.println("New employee with id: " + employeeService.addEmployee(employee).getId() + " was added.");
         return "redirect:/employee/all";
     }
 

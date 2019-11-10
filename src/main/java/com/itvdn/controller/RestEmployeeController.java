@@ -6,6 +6,7 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Objects;
 
 // @ResponseBody по умоляанию для всех методов @RestController
 @RestController
@@ -18,7 +19,7 @@ public class RestEmployeeController {
     }
 
     @PostMapping("/add")
-    public Employee addEmployeePOST(@RequestBody Employee employee){
+    public Employee addEmployeePOST(@RequestBody Employee employee) {
         return employeeService.addEmployee(employee);
     }
 
@@ -33,7 +34,7 @@ public class RestEmployeeController {
     }
 
     @DeleteMapping("/delete/{id}")
-    public Employee delEmployee(@PathVariable long id){
+    public Employee delEmployee(@PathVariable long id) {
         return employeeService.deleteById(id);
     }
 }
