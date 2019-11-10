@@ -18,6 +18,10 @@ public class EmployeeServiceImpl implements EmployeeService {
     private EmployeeRepository employeeRepository;
     private EmployeeServiceImpl employeeService;
 
+    public EmployeeServiceImpl(EmployeeRepository employeeRepository) {
+        this.employeeRepository = employeeRepository;
+    }
+
     @Override
     public Employee addEmployee(Employee employee) {
         return employeeRepository.save(employee);
@@ -26,9 +30,9 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Cacheable("employees")
     @Override
     public List<Employee> findAll() throws InterruptedException {
-        System.out.println("Star sleeping for 3 seconds");
-        Thread.sleep(3000);
-        System.out.println("End sleeping for 3 seconds");
+//        System.out.println("Star sleeping for 3 seconds");
+//        Thread.sleep(3000);
+//        System.out.println("End sleeping for 3 seconds");
         return Lists.newArrayList(employeeRepository.findAll());
     }
 
@@ -95,11 +99,6 @@ public class EmployeeServiceImpl implements EmployeeService {
         employeeService.findAll(); // call with self inject
         System.out.println("Getting employee from repo");
         return Optional.ofNullable(employeeRepository.findById(id));
-    }
-
-    @Autowired
-    public void setEmployeeRepository(EmployeeRepository employeeRepository) {
-        this.employeeRepository = employeeRepository;
     }
 
     // self inject

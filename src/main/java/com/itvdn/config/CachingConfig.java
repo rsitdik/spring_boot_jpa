@@ -29,5 +29,4 @@ public class CachingConfig {
     public ConcurrentMapCacheFactoryBean getEmplCache() {
         return new ConcurrentMapCacheFactoryBean();
     }
-
 }
