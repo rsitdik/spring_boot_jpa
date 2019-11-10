@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Objects;
 
 @Controller
 @RequestMapping("/employee")
@@ -99,7 +100,7 @@ public class EmployeeController {
     public String clearCache() {
         for (String name : cacheManager.getCacheNames()) {
             System.out.println(name);
-            System.out.println(((ConcurrentMapCache)cacheManager.getCache(name)).getNativeCache().entrySet());
+            System.out.println(((ConcurrentMapCache) Objects.requireNonNull(cacheManager.getCache(name))).getNativeCache().entrySet());
         }
         employeeService.clearCache();
         return "redirect:/employee/all";
