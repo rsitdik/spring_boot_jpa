@@ -36,7 +36,7 @@ public class EmployeeController {
         employee.setPosition(request.getParameter("position"));
         employee.setPhone(request.getParameter("phone"));
         employee.setLogin(request.getParameter("login"));
-        employee.setPassword(request.getParameter("password"));
+        employee.setEncodePassword(request.getParameter("password"));
         employee.setRolId(Integer.valueOf(request.getParameter("roleId")));
         LOG.info("New employee with id: " + employeeService.addEmployee(employee).getId() + " was added.");
         return "redirect:/employee/all";

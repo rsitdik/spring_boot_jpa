@@ -81,6 +81,10 @@ public class Employee {
     }
 
     public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public void setEncodePassword(String password) {
         this.password = new BCryptPasswordEncoder().encode(password);
     }
 
