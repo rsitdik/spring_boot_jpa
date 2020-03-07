@@ -23,6 +23,6 @@ public interface EmployeeRepository extends CrudRepository<Employee, Long> {
     List<Employee> findEmployeeByNameAndPhone(String name, String phone);
 
     // или по имени, но тогда в параметрах имена нужно замапить
-//    @Query("select e from Employee  e where e.name=:name and e.phone=:phone")
+//    @Query("select e from Employee e where e.name=:name and e.phone=:phone")
 //    List<Employee> findEmployeeByNameAndPhone(@Param("name") String name, @Param("phone") String phone);
 }
